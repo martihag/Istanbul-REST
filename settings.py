@@ -6,7 +6,7 @@ MONGO_PORT = 27017
 #MONGO_PASSWORD = 'user'
 MONGO_DBNAME = 'istanbulApp'
 
-SERVER_NAME = '127.0.0.1:5000'
+#SERVER_NAME = '127.0.0.1:5000'
 
 
 # Enable reads (GET), inserts (POST) and DELETE for resources/collections
@@ -146,14 +146,15 @@ comments = {
 }
 
 locations = {
+
     'item_title': 'location',
 
     'schema': {
         'coordinates': {
             'type': 'dict',
             'schema': {
-                'lon': {'type': float},
-                'lat': {'type': float}
+                'lon': {'type': 'float'},
+                'lat': {'type': 'float'}
             },
         }
     }
