@@ -42,6 +42,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+eve-docs/
 
 # Installer logs
 pip-log.txt
