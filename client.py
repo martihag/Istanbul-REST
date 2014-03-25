@@ -86,7 +86,7 @@ def post_activities():
 
     return valids
 
-def put_activity(id, data, etag):
+def patch_activity(id, data, etag):
     r = perform_update('activities/' + id, data, etag)
     print("'activities' updated", r.status_code, r.headers)
 
@@ -97,7 +97,7 @@ def perform_post(resource, data):
 
 def perform_update(resource, data, etag):
     headers = {'Content-Type': 'application/json','If-Match': ''+etag}
-    return requests.put(endpoint(resource), data, headers=headers)
+    return requests.patch(endpoint(resource), data, headers=headers)
 
 
 
@@ -130,16 +130,18 @@ if __name__ == '__main__':
     delete()
     ids = post_accounts()
     r = post_activities()
-    print(ids[0])
+    #print(ids[0])
     activities = get("activities")
-    print(activities['_items'][0]['_id'])
-    print(activities['_items'][0]['_etag'])
+    #print(activities['_items'][0]['_id'])
+    #print(activities['_items'][0]['_etag'])
     attending = {'attending': [ids[0]]}
-    put_activity(activities['_items'][0]['_id'], json.dumps(attending), activities['_items'][0]['_etag'] )
-    activities = get("activities")
 
-    attending_list = activities['_items'][0]['attending']
+    patch_activity(activities['_items'][0]['_id'], json.dumps(attending), activities['_items'][0]['_etag'] )
+    activities = get("activities/"+activities['_items'][0]['_id'])
+    print(activities)
+
+    attending_list = activities['attending']
     attending_list.append(ids[1])
     attending = {'attending': attending_list}
     print(attending)
-    put_activity(activities['_items'][0]['_id'], json.dumps(attending), activities['_items'][0]['_etag'] )
+    patch_activity(activities['_id'], json.dumps(attending), activities['_etag'] )
