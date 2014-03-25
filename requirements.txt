@@ -2,12 +2,12 @@ Cerberus==0.6
 Eve==0.3
 Events==0.2.0
 Flask==0.10.1
-Flask-PyMongo==0.3.0
 Flask-Bootstrap==3.1.1.2
+Flask-PyMongo==0.3.0
 Jinja2==2.7.2
 MarkupSafe==0.18
 Werkzeug==0.9.4
 itsdangerous==0.22
 pymongo==2.6.3
+requests==2.2.1
 simplejson==3.3.0
-wsgiref==0.1.2

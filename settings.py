@@ -16,7 +16,7 @@ RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
 
 # Enable reads (GET), edits (PATCH) and deletes of individual items
 # (defaults to read-only item access).
-ITEM_METHODS = ['GET', 'PATCH', 'DELETE']
+ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
 
 # We enable standard client cache directives for all resources exposed by the
 # API. We can always override these global settings later-
@@ -103,7 +103,8 @@ activities = {
             'schema': {
                 'type': 'objectid',
                 'data_relation': {
-                    'resource': 'accounts'
+                    'resource': 'accounts',
+                    'field': '_id',
                 }
             }
         },
