@@ -19,9 +19,10 @@ RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
 ITEM_METHODS = ['GET', 'PATCH', 'DELETE']
 
 # We enable standard client cache directives for all resources exposed by the
-# API. We can always override these global settings later.
+# API. We can always override these global settings later-
 CACHE_CONTROL = 'max-age=20'
 CACHE_EXPIRES = 20
+EMBEDDING = True
 
 accounts = {
     #many-to-many with activities
@@ -94,7 +95,7 @@ activities = {
             'minlength': 1,
             'maxlength': 35,
         },
-        'rating:': {
+        'rating': {
             'type': 'number'
         },
         'attending': {
