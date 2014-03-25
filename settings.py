@@ -30,37 +30,56 @@ accounts = {
 
     'additional_lookup': {
         'url': 'regex("[\w]+")',
-        'field': 'user'
+        'field': 'username'
     },
 
+    'cache_control': '',
+    'cache_expires': 0,
+
     'schema': {
-    #Real name, or user name?
-        'user': {
+        'username': {
             'type': 'string',
-            'minlength': 1,
-            'maxlength': 15,
             'required': True,
-        },
-        'firstname' : {
-            'type': 'string',
-            'minlength': 1,
-            'maxlength': 20,
-        },
-        'lastname': {
-            'type': 'string',
-            'minlength': 1,
-            'maxlength': 20,
+            'unique': True,
         },
         'password': {
             'type': 'string',
             'minlength': 5,
             'required': True,
         },
+    }
+}
+
+users = {
+    #many-to-many with activities
+    'item_title': 'user',
+
+    'additional_lookup': {
+        'url': 'regex("[\w]+")',
+        'field': 'account_name'
+    },
+
+    'schema': {
+        'account_name' : {
+            'type': 'objectid',
+            'required': True,
+            'data_relation': {
+                'resource': 'accounts',
+                'field': 'username'
+            }
+        },
+        'firstname' : {
+            'type': 'string',
+            'minlength': 1,
+        },
+        'lastname': {
+            'type': 'string',
+            'minlength': 1,
+        },
         'description': {
             'type': 'string',
             'minlength': 1,
             'maxlength': 149,
-
         },
         'attending': {
             'type': 'list',
@@ -83,6 +102,7 @@ accounts = {
     }
 }
 
+
 activities = {
     #many-to-many with accounts
     #one-to-many with comments
@@ -103,7 +123,7 @@ activities = {
             'schema': {
                 'type': 'objectid',
                 'data_relation': {
-                    'resource': 'accounts',
+                    'resource': 'users',
                     'field': '_id',
                 }
             }
@@ -164,6 +184,7 @@ locations = {
 
 DOMAIN = {
     'accounts': accounts,
+    'users': users,
     'activities': activities,
     'comments': comments,
     'locations': locations,
