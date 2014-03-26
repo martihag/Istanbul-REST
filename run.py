@@ -30,9 +30,9 @@ def pre_insert_accounts(items):
 
 if __name__ == '__main__':
     #app = Eve(auth=MyBasicAuth)
-    app = Eve(auth=BCryptAuth)
+    #app = Eve(auth=BCryptAuth)
 
-    #app = Eve()
+    app = Eve()
     Bootstrap(app)
 
     #Hooks

@@ -56,12 +56,12 @@ users = {
 
     'additional_lookup': {
         'url': 'regex("[\w]+")',
-        'field': 'account_name'
+        'field': 'user'
     },
 
     'schema': {
-        'account_name' : {
-            'type': 'objectid',
+        'user' : {
+            'type': 'string',
             'required': True,
             'data_relation': {
                 'resource': 'accounts',

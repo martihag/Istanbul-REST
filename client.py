@@ -10,39 +10,24 @@ ENTRY_POINT = 'http://127.0.0.1:5000'
 def post_accounts():
     accounts = [
         {
-            'firstname': 'John',
-            'lastname': 'Doe',
-            'user': 'johdo',
+            'username': 'johdo',
             'password': '123es',
-            'description': 'Lorem ipsum'
         },
         {
-            'firstname': 'Serena',
-            'lastname': 'Love',
-            'user': 'serlo',
+            'username': 'serlo',
             'password': '123es',
-            'description': 'Lorem ipsum'
         },
         {
-            'firstname': 'Mark',
-            'lastname': 'Green',
-            'user': 'magre',
+            'username': 'magre',
             'password': '123es',
-            'description': 'Lorem ipsum'
         },
         {
-            'firstname': 'Julia',
-            'lastname': 'Red',
-            'user': 'julred',
+            'username': 'julred',
             'password': '123es',
-            'description': 'Lorem ipsum'
         },
         {
-            'firstname': 'Anne',
-            'lastname': 'White',
-            'user': 'anwhi',
+            'username': 'anwhi',
             'password': '123es',
-            'description': 'Lorem ipsum'
         },
     ]
 
@@ -55,6 +40,52 @@ def post_accounts():
         for account in response:
             if account['_status'] == "OK":
                 valids.append(account['_id'])
+
+    return valids
+
+def post_users():
+    users = [
+        {
+            'firstname': 'John',
+            'lastname': 'Doe',
+            'user': 'johdo',
+            'description': 'Lorem ipsum'
+        },
+        {
+            'firstname': 'Serena',
+            'lastname': 'Love',
+            'user': 'serlo',
+            'description': 'Lorem ipsum'
+        },
+        {
+            'firstname': 'Mark',
+            'lastname': 'Green',
+            'user': 'magre',
+            'description': 'Lorem ipsum'
+        },
+        {
+            'firstname': 'Julia',
+            'lastname': 'Red',
+            'user': 'julred',
+            'description': 'Lorem ipsum'
+        },
+        {
+            'firstname': 'Anne',
+            'lastname': 'White',
+            'user': 'anwhi',
+            'description': 'Lorem ipsum'
+        },
+    ]
+
+    r = perform_post('users', json.dumps(users))
+    print("'users' posted", r.status_code)
+
+    valids = []
+    if r.status_code == 201:
+        response = r.json()
+        for user in response:
+            if user['_status'] == "OK":
+                valids.append(user['_id'])
 
     return valids
 
@@ -128,7 +159,8 @@ def get(resource):
 
 if __name__ == '__main__':
     delete()
-    ids = post_accounts()
+    post_accounts()
+    ids = post_users()
     r = post_activities()
     #print(ids[0])
     activities = get("activities")
