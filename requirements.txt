@@ -8,6 +8,6 @@ Jinja2==2.7.2
 MarkupSafe==0.18
 Werkzeug==0.9.4
 itsdangerous==0.22
+py-bcrypt==0.4
 pymongo==2.6.3
-requests==2.2.1
 simplejson==3.3.0
