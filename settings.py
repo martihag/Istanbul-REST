@@ -23,6 +23,8 @@ ITEM_METHODS = ['GET', 'PATCH', 'DELETE']
 CACHE_CONTROL = 'max-age=20'
 CACHE_EXPIRES = 20
 EMBEDDING = True
+X_DOMAINS = '*'
+X_HEADERS = ['authorization', 'content-type']
 
 accounts = {
     #many-to-many with activities
