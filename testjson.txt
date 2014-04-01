@@ -1,4 +1,5 @@
-{"user":"martihag", "firstname":"Martin", "lastname":"Hagerup", "password":"1234s", "description":"Juhu! Jeg er bruker!}
+account: {"username": "edman", "password": "pass", "roles": ["admin"], "token": "wat"} 
+user: {"user":"martihag", "firstname":"Martin", "lastname":"Hagerup", "password":"1234s", "description":"Juhu! Jeg er bruker!}
 
 {"coordinates": {"lon": 54.221, "lat": 44.221}}
 

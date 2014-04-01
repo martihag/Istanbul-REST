@@ -1,3 +1,6 @@
+from run import MyBasicAuth, BCryptAuth
+
+
 # MongoDB setup
 MONGO_HOST = 'localhost'
 #MONGO_HOST = '158.38.43.92'
@@ -6,7 +9,7 @@ MONGO_PORT = 27017
 #MONGO_PASSWORD = 'user'
 MONGO_DBNAME = 'istanbulApp'
 
-#SERVER_NAME = '127.0.0.1:5000'
+SERVER_NAME = '127.0.0.1:5000'
 
 
 # Enable reads (GET), inserts (POST) and DELETE for resources/collections
@@ -25,10 +28,17 @@ CACHE_EXPIRES = 20
 EMBEDDING = True
 X_DOMAINS = '*'
 X_HEADERS = ['authorization', 'content-type']
+URL_PROTOCOL = 'http'
 
 accounts = {
+
+    'public_methods': ['POST'],
+    'allowed_roles': ['admin'],
+    'allowed_item_roles': ['admin', 'app'],
     #many-to-many with activities
     'item_title': 'account',
+
+    'authentication': BCryptAuth(),
 
     'additional_lookup': {
         'url': 'regex("[\w]+")',
@@ -38,6 +48,10 @@ accounts = {
     'cache_control': '',
     'cache_expires': 0,
 
+    'allowed_roles': ['admin', 'app'],
+
+    'extra_response_fields': ['token'],
+
     'schema': {
         'username': {
             'type': 'string',
@@ -46,9 +60,18 @@ accounts = {
         },
         'password': {
             'type': 'string',
-            'minlength': 5,
+            'minlength': 3,
             'required': True,
         },
+        'roles': {
+          'type': 'list',
+          'allowed': ['app', 'admin'],
+          'required': True,
+        },
+        'token': {
+          'type': 'string',
+          'required': True,
+        }
     }
 }
 
@@ -150,6 +173,7 @@ activities = {
 
 comments = {
     #many-to-one with activities
+    'authentication': MyBasicAuth(),
 
     'item_title': 'comment',
 
