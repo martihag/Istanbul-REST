@@ -1,15 +1,18 @@
-from run import MyBasicAuth, BCryptAuth
-
+import os
 
 # MongoDB setup
-MONGO_HOST = 'localhost'
-#MONGO_HOST = '158.38.43.92'
-MONGO_PORT = 27017
-#MONGO_USERNAME = 'user'
-#MONGO_PASSWORD = 'user'
-MONGO_DBNAME = 'istanbulApp'
 
-SERVER_NAME = '127.0.0.1:5000'
+if os.environ.get('PORT'):
+    pass
+else:
+    MONGO_HOST = 'localhost'
+    #MONGO_HOST = '158.38.43.92'
+    MONGO_PORT = 27017
+    #MONGO_USERNAME = 'user'
+    #MONGO_PASSWORD = 'user'
+    MONGO_DBNAME = 'istanbulApp'
+
+    #SERVER_NAME = 'localhost:5000'
 
 
 # Enable reads (GET), inserts (POST) and DELETE for resources/collections
@@ -33,12 +36,13 @@ URL_PROTOCOL = 'http'
 accounts = {
 
     'public_methods': ['POST'],
+    #'resource_methods': ['POST'],
     'allowed_roles': ['admin'],
-    'allowed_item_roles': ['admin', 'app'],
+    #'allowed_item_roles': ['admin', 'app'],
     #many-to-many with activities
     'item_title': 'account',
 
-    'authentication': BCryptAuth(),
+    #'authentication': BCryptAuth(),
 
     'additional_lookup': {
         'url': 'regex("[\w]+")',
@@ -48,9 +52,7 @@ accounts = {
     'cache_control': '',
     'cache_expires': 0,
 
-    'allowed_roles': ['admin', 'app'],
-
-    'extra_response_fields': ['token'],
+    #'allowed_roles': ['admin', 'app'],
 
     'schema': {
         'username': {
@@ -66,11 +68,7 @@ accounts = {
         'roles': {
           'type': 'list',
           'allowed': ['app', 'admin'],
-          'required': True,
-        },
-        'token': {
-          'type': 'string',
-          'required': True,
+          'required': False,
         }
     }
 }
@@ -173,7 +171,7 @@ activities = {
 
 comments = {
     #many-to-one with activities
-    'authentication': MyBasicAuth(),
+    #'authentication': MyBasicAuth(),
 
     'item_title': 'comment',
 
@@ -189,6 +187,37 @@ comments = {
             'data_relation': {
                 'resource': 'activities'
             }
+        }
+    }
+}
+
+routes = {
+
+    'item_title': 'route',
+
+    'schema': {
+        'name': {
+            'type': 'string',
+            'maxlength': 100,
+        },
+        'description': {
+            'type': 'string',
+            'maxlength': 900,
+        },
+        'start': {
+            'type': 'string',
+            'maxlength': 500,
+        },
+        'end': {
+            'type': 'string',
+            'maxlength': 500,
+        },
+        'waypoints': {
+            'type': 'list',
+            'schema': {
+                'type': 'string',
+                'maxlength': 500,
+            },
         }
     }
 }
@@ -214,4 +243,5 @@ DOMAIN = {
     'activities': activities,
     'comments': comments,
     'locations': locations,
+    'routes': routes,
 }
