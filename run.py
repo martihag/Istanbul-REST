@@ -4,6 +4,7 @@ from flask.ext.bootstrap import Bootstrap
 from werkzeug.security import check_password_hash, generate_password_hash
 from eve_docs import eve_docs
 from eve.auth import TokenAuth, BasicAuth, requires_auth
+import os
 
 class MyBasicAuth(BasicAuth):
     def check_auth(self, username, password, allowed_roles, resource, method):
@@ -77,4 +78,15 @@ if __name__ == '__main__':
 
     app.register_blueprint(eve_docs, url_prefix='/docs')
 
-    app.run(host='0.0.0.0', debug=True)
+    if 'PORT' in os.environ:
+        port = int(os.environ.get('PORT'))
+        # use '0.0.0.0' to ensure your REST API is reachable from all your
+        # network (and not only your computer).
+        host = '0.0.0.0'
+        debug = False
+    else:
+        port = 5000
+        host = '127.0.0.1'
+        debug = True
+
+    app.run(host=host, port=port, debug=debug)

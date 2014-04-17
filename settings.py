@@ -3,7 +3,16 @@ import os
 # MongoDB setup
 
 if os.environ.get('PORT'):
-    pass
+    # We're hosted on Heroku!  Use the MongoHQ sandbox as our backend.
+    MONGO_HOST = 'oceanic.mongohq.com'
+    MONGO_PORT = 10063
+    MONGO_USERNAME = 'instabulApp'
+    MONGO_PASSWORD = 'instabulApp'
+    MONGO_DBNAME = 'instabulREST'
+
+    # also, correctly set the API entry point
+    SERVER_NAME = 'instabul.herokuapp.com'
+
 else:
     MONGO_HOST = 'localhost'
     #MONGO_HOST = '158.38.43.92'
