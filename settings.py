@@ -6,8 +6,8 @@ if os.environ.get('PORT'):
     # We're hosted on Heroku!  Use the MongoHQ sandbox as our backend.
     MONGO_HOST = 'lennon.mongohq.com'
     MONGO_PORT = 10022
-    MONGO_USERNAME = 'instabulApp'
-    MONGO_PASSWORD = 'instabulApp'
+    #MONGO_USERNAME = 'instabulApp'
+    #MONGO_PASSWORD = 'instabulApp'
     MONGO_DBNAME = 'app24248294'
 
     # also, correctly set the API entry point
