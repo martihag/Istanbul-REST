@@ -61,7 +61,7 @@ def add_role(documents):
 
 
 @app.route('/auth')
-@cross_origin()
+@cross_origin(headers='authorization')
 @requires_auth('auth')
 def auth():
     #print(request.headers)
