@@ -4,6 +4,7 @@ from flask.ext.bootstrap import Bootstrap
 from werkzeug.security import check_password_hash, generate_password_hash
 from eve_docs import eve_docs
 from eve.auth import TokenAuth, BasicAuth, requires_auth
+from flask_cors import cross_origin
 import os
 
 class MyBasicAuth(BasicAuth):
@@ -60,6 +61,7 @@ def add_role(documents):
 
 
 @app.route('/auth')
+@cross_origin()
 @requires_auth('auth')
 def auth():
     #print(request.headers)
