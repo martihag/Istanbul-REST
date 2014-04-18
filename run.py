@@ -59,14 +59,12 @@ def add_role(documents):
     for document in documents:
         document['roles'] = 'app'
 
-
 @app.route('/auth')
 @cross_origin(headers='authorization')
 @requires_auth('auth')
 def auth():
     #print(request.headers)
     return "Authenticated."
-
 
 if __name__ == '__main__':
 
