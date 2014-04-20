@@ -3,9 +3,10 @@ from flask import request
 from flask.ext.bootstrap import Bootstrap
 from werkzeug.security import check_password_hash, generate_password_hash
 from eve_docs import eve_docs
+from eve.methods.post import post
 from eve.auth import TokenAuth, BasicAuth, requires_auth
 from flask_cors import cross_origin
-import os
+import os, json
 
 class MyBasicAuth(BasicAuth):
     def check_auth(self, username, password, allowed_roles, resource, method):
@@ -59,6 +60,10 @@ def add_role(documents):
     for document in documents:
         document['roles'] = 'app'
 
+def register_users(documents):
+    for document in documents:
+        post('users', payl={"user": document['username']})
+
 @app.route('/auth')
 @cross_origin(headers='authorization')
 @requires_auth('auth')
@@ -71,10 +76,11 @@ if __name__ == '__main__':
     Bootstrap(app)
 
     #Hooks
-    #app.on_post_GET_login += post_get_callback
+    app.on_inserted_accounts += register_users
     app.on_insert_accounts += hash_pwd
     #app.on_insert_accounts += add_token
     app.on_insert_accounts += add_role
+
 
     app.register_blueprint(eve_docs, url_prefix='/docs')
 

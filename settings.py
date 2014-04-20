@@ -41,6 +41,7 @@ EMBEDDING = True
 X_DOMAINS = '*'
 X_HEADERS = ['authorization', 'content-type']
 URL_PROTOCOL = 'http'
+IF_MATCH = False
 
 accounts = {
 
@@ -85,6 +86,7 @@ accounts = {
 users = {
     #many-to-many with activities
     'item_title': 'user',
+    'public_methods': ['POST'],
 
     'additional_lookup': {
         'url': 'regex("[\w]+")',
@@ -95,6 +97,7 @@ users = {
         'user' : {
             'type': 'string',
             'required': True,
+            'unique': True,
             'data_relation': {
                 'resource': 'accounts',
                 'field': 'username'
