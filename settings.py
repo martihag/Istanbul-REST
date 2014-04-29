@@ -239,11 +239,23 @@ locations = {
     'item_title': 'location',
 
     'schema': {
+        'details': {
+            'type': 'string',
+            'maxlength': 900,
+        },
+        'category': {
+            'type': 'string',
+            'maxlength': 30,
+        },
+        'name': {
+            'type': 'string',
+            'maxlength': 50,
+        },
         'coordinates': {
             'type': 'dict',
             'schema': {
-                'lon': {'type': 'float'},
-                'lat': {'type': 'float'}
+                'lat': {'type': 'float'},
+                'lng': {'type': 'float'}
             },
         }
     }
