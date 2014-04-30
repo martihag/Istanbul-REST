@@ -60,6 +60,11 @@ def add_role(documents):
     for document in documents:
         document['roles'] = 'app'
 
+def update_hash_pwd(updates, original):
+    #Hooks the passwords and encrypts them before storage
+    password = updates['password']
+    updates['password'] = generate_password_hash(password, method='pbkdf2:sha1', salt_length=8)
+
 def register_users(documents):
     for document in documents:
         post('users', payl={"user": document['username']})
@@ -78,9 +83,8 @@ if __name__ == '__main__':
     #Hooks
     app.on_inserted_accounts += register_users
     app.on_insert_accounts += hash_pwd
-    #app.on_insert_accounts += add_token
     app.on_insert_accounts += add_role
-
+    app.on_update_accounts += update_hash_pwd
 
     app.register_blueprint(eve_docs, url_prefix='/docs')
 

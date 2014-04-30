@@ -47,7 +47,7 @@ accounts = {
 
     'public_methods': ['POST'],
     #'resource_methods': ['POST'],
-    'allowed_roles': ['admin'],
+    #'allowed_roles': ['admin'],
     #'allowed_item_roles': ['admin', 'app'],
     #many-to-many with activities
     'item_title': 'account',
@@ -138,49 +138,6 @@ users = {
 }
 
 
-activities = {
-    #many-to-many with accounts
-    #one-to-many with comments
-    #many-to-one with locations
-    'item_title': 'activity',
-
-    'schema': {
-        'name': {
-            'type': 'string',
-            'minlength': 1,
-            'maxlength': 35,
-        },
-        'rating': {
-            'type': 'number'
-        },
-        'attending': {
-            'type': 'list',
-            'schema': {
-                'type': 'objectid',
-                'data_relation': {
-                    'resource': 'users',
-                    'field': '_id',
-                }
-            }
-        },
-        'comments': {
-            'type': 'list',
-            'schema': {
-                'type': 'objectid',
-                'data_relation': {
-                    'resource': 'comments'
-                }
-            }
-        },
-        'location': {
-            'type': 'objectid',
-            'data_relation': {
-                'resource': 'locations'
-            }
-        }
-    }
-}
-
 comments = {
     #many-to-one with activities
     #'authentication': MyBasicAuth(),
@@ -243,6 +200,13 @@ locations = {
             'type': 'string',
             'maxlength': 900,
         },
+        'location': {
+            'type': 'string',
+            'maxlength': 500,
+        },
+        'rating' : {
+            'type': 'float',
+        },
         'category': {
             'type': 'string',
             'maxlength': 30,
@@ -264,7 +228,6 @@ locations = {
 DOMAIN = {
     'accounts': accounts,
     'users': users,
-    'activities': activities,
     'comments': comments,
     'locations': locations,
     'routes': routes,
